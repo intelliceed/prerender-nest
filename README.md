@@ -1,3 +1,23 @@
+
+#### How to eun app
+
+### Run prerender server `http://localhost:7070`
+
+```bash
+npm run start:dev:prerender
+```
+
+### Setup url for prerender (your local IP)
+`src/app.service.ts:14`
+
+### Run NestJS with Redis `http://localhost:7050`
+```bash
+docker-compose build --no-cache
+docker-compose up -V
+```
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>

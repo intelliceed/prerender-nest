@@ -10,7 +10,7 @@ export class AppController {
   ) {}
 
   @Get()
-  async getHello(): Promise<string> {
-    return await this.appService.getHello();
+  async main(): Promise<string> {
+    return await this.appService.main();
   }
 }
