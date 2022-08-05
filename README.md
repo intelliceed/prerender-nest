@@ -1,5 +1,5 @@
 
-#### How to eun app
+## How to run app
 
 ### Run prerender server `http://localhost:7070`
 
