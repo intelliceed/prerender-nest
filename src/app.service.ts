@@ -8,8 +8,8 @@ export class AppService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-   async main(): Promise<any> {
-    try{
+  async main(): Promise<any> {
+    try {
       // TODO Setup url for prerender (your local IP)
       const response = await axios.get('http://192.168.0.245:7070/render?url=https://www.example.com/')
       return response.data;
