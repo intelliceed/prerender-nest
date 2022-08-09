@@ -16,7 +16,17 @@ docker-compose build --no-cache
 docker-compose up -V
 ```
 
+## API
 
+Get html
+```sh
+http://localhost:7050/prerender/get?url=https://www.example.com/
+```
+
+Update html in redis
+```sh
+http://localhost:7050/prerender/refresh?url=https://www.example.com/
+```
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
