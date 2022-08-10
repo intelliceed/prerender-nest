@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Cache } from 'cache-manager';
+import sanitizeHtml from 'sanitize-html';
 import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 
 export interface PrerenderOptions {
@@ -22,10 +23,8 @@ export class PrerenderService {
   async get(options: PrerenderOptions): Promise<any> {
     const record = await this.cacheManager.get(options.url);
     if (record) {
-      console.info('Page from redis!')
       return record
     } else {
-      console.info('Generated Page!')
       return this.render(options);
     }
   }
@@ -41,7 +40,13 @@ export class PrerenderService {
         params.append(key, options[key]);
       }
       const response = await axios.get(`${process.env.PRERENDER_URL}/render?${params}`)
-      const renderedPage = response.data;
+      const renderedPage = sanitizeHtml(response.data, {
+        exclusiveFilter: function(frame) {
+          return frame.tag === 'link' && frame.attribs.rel === 'stylesheet';
+        },
+        allowedAttributes: false,
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['head', 'meta', 'title', 'link']),
+      });
       await this.cacheManager.set(options.url, renderedPage);
       return renderedPage
     } catch(e){

@@ -2,6 +2,6 @@
 const prerender = require('prerender');
 const server = prerender({
   port: 7070,
-  // chromeLocation: 'http://chrome:4444/wd/hub'
+  chromeLocation: process.env.CHROME_BIN
 });
 server.start();

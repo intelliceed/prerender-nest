@@ -15,8 +15,8 @@ services:
       - ${DEBUG_PORT}:${DEBUG_PORT}
     command: npm run start:dev
     volumes:
-      - .:/app/
-      - /app/node_modules
+      - .:/usr/app/
+      - /usr/app/node_modules
 
   cache:
     image: redis:6.2-alpine

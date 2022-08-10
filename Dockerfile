@@ -1,13 +1,11 @@
 FROM node:16.16.0
-WORKDIR /app
-COPY ./package.json ./
-COPY ./package-lock.json ./
-RUN npm install -g npm@8.6.0
-RUN curl -v https://registry.npmjs.com/
-RUN npm ci && npm cache clean --force
+WORKDIR /usr/app
+COPY ./package*.json ./
+RUN npm install
 
 COPY . .
-RUN chown -R node:node /app
+
+RUN chown -R node:node /usr/app
 USER node
 
 EXPOSE 7050

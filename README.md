@@ -20,7 +20,7 @@ docker-compose up -V
 
 Get html
 ```sh
-http://localhost:7050/prerender/get?url=https://www.example.com/
+http://localhost:7050/prerender/render?url=https://www.example.com/
 ```
 
 Update html in redis

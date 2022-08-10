@@ -12,9 +12,9 @@ export class PrerenderController {
     return this.prerenderService.refresh(options);
   }
 
-  @Get('/get')
+  @Get('/render')
   get (@Query() options: PrerenderOptions) {
-    console.info('/get')
+    console.info('/render')
     return this.prerenderService.get(options);
   }
 }
