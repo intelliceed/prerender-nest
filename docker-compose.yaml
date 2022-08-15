@@ -8,8 +8,6 @@ services:
     tty: true
     env_file:
       - .env
-    depends_on:
-      - cache
     ports:
       - ${PORT}:${PORT}
       - ${DEBUG_PORT}:${DEBUG_PORT}
@@ -17,17 +15,6 @@ services:
     volumes:
       - .:/usr/app/
       - /usr/app/node_modules
-
-  cache:
-    image: redis:6.2-alpine
-    restart: always
-    env_file:
-      - .env
-    ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
-    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
-    volumes:
-      - cache:/data/cache
 
 volumes:
   cache:
