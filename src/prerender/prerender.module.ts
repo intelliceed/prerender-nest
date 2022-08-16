@@ -12,10 +12,6 @@ import { PrerenderController } from './prerender.controller';
     CacheModule.register<ClientOpts>({
       store: redisStore,
       url: process.env.REDIS_URL,
-      // host: process.env.REDIS_HOST,
-      // port: process.env.REDIS_PORT,
-      // auth_pass: process.env.REDIS_PASSWORD,
-      // db: process.env.REDIS_DB,
       ttl: 600
     }),
   ],
