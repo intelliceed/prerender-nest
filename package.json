@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^5.32.0",
     "concurrently": "^7.3.0",
     "editorconfig-checker": "^4.0.2",
-    "eslint": "^8.21.0",
+    "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-nestjs": "^1.2.3",
