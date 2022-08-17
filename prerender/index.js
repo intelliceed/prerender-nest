@@ -1,5 +1,9 @@
 /* eslint-disable */
+const dotenv = require('dotenv');
 const prerender = require('prerender');
+
+dotenv.config({ override: false, debug: varBoolean(process.env.DEBUG) });
+const DEBUG = varBoolean(process.env.DEBUG);
 
 const server = prerender({
   port: varNumber(process.env.PRERENDER_PORT),
@@ -10,7 +14,7 @@ const server = prerender({
   pageLoadTimeout: varNumber(process.env.CHROME_PAGE_LOAD_TIMEOUT) || 2e4, // Maximum time to page rendering
   pageReadyDelay: varNumber(process.env.CHROME_PAGE_READY_DELAY) || 3e2, // Give a bit time after last request to render data in html or trigger more requests
   pageDoneCheckInterval: varNumber(process.env.CHROME_PAGE_DONE_CHECK_INTERVAL) || 3e2, // How often page should be checked about ready state
-  followRedirects: varBoolean(process.env.CHROME_FOLLOW_REDIREC) || false, // Weather to follow redirect
+  followRedirects: varBoolean(process.env.CHROME_FOLLOW_REDIRECT) || false, // Weather to follow redirect
 });
 
 server.start();

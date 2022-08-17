@@ -1,16 +1,15 @@
 
 ## How to run app
 
-### Run prerender server `http://localhost:7070`
+### Run prerender server `http://localhost:3002/render?ursl=`
 
 ```bash
-npm run start:dev:prerender
+cd prerender
+npm ci
+npm run start
 ```
 
-### Setup url for prerender (your local IP)
-`src/app.service.ts:14`
-
-### Run NestJS with Redis `http://localhost:7050`
+### Run NestJS with Redis `http://localhost:3001`
 ```bash
 docker-compose build --no-cache
 docker-compose up -V

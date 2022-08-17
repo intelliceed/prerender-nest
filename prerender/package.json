@@ -1,0 +1,19 @@
+{
+  "name": "prerender",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "author": "ichaban@intelliceed.com",
+  "license": "ISC",
+  "engines": {
+    "node": "^16.16.0",
+    "npm": "^8.6.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "prerender": "^5.20.0"
+  }
+}

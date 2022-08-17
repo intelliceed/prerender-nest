@@ -10,4 +10,4 @@ RUN chown -R node:node /usr/app
 USER node
 
 EXPOSE 3001
-CMD ["npm", "run", "start:dev:nestjs"]
+CMD ["npm", "run", "start:dev"]
