@@ -11,16 +11,9 @@ export class SystemController {
     private systemService: SystemService,
   ) {}
 
-  @Get('/nestjs')
+  @Get('/health')
   @HealthCheck()
-  check() {
+  health() {
     return this.systemService.check();
-  }
-
-
-  @Get('/prerender')
-  @HealthCheck()
-  prerender() {
-    return this.systemService.prerender();
   }
 }

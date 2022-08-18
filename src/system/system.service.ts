@@ -15,12 +15,7 @@ export class SystemService {
 
   check() {
     return this.health.check([
-      () => this.http.pingCheck('nestjs-docs', 'https://docs.nestjs.com'),
-    ]);
-  }
-
-  async prerender() {
-    return await this.health.check([
+      async () => await this.http.pingCheck('nestjs-docs', 'https://docs.nestjs.com'),
       async () => await this.prerenderHealthIndicator.isHealthy(
         'prerender',
         await this.prerenderService.render({
