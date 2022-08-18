@@ -5,7 +5,7 @@ import { HealthCheck } from '@nestjs/terminus';
 import { SystemService } from './system.service';
 
 @ApiTags('System')
-@Controller('/system')
+@Controller('/')
 export class SystemController {
   constructor(
     private systemService: SystemService,

@@ -4,7 +4,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { PrerenderOptions, PrerenderService } from './prerender.service';
 
 @ApiTags('Prerender')
-@Controller('prerender')
+@Controller('/')
 export class PrerenderController {
   constructor (private prerenderService: PrerenderService) {}
 
