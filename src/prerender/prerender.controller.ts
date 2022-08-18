@@ -1,7 +1,9 @@
+import { ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Query } from '@nestjs/common';
 
 import { PrerenderOptions, PrerenderService } from './prerender.service';
 
+@ApiTags('Prerender')
 @Controller('prerender')
 export class PrerenderController {
   constructor (private prerenderService: PrerenderService) {}
