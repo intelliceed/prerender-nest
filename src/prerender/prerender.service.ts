@@ -23,17 +23,15 @@ export class PrerenderService {
   ) {}
 
   async get(options: Partial<PrerenderOptions>): Promise<any> {
-    console.log(1);
     try {
       const record = await this.cacheManager.get(options.url);
-      console.log(2);
       if (record) {
         return record;
       } else {
         return this.render(options);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
@@ -58,10 +56,9 @@ export class PrerenderService {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat(['head', 'meta', 'title', 'link']),
       });
       await this.cacheManager.set(options.url, renderedPage);
-      console.log(renderedPage)
       return renderedPage;
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 }
