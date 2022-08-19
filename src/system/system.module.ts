@@ -8,8 +8,8 @@ import { SystemService } from './system.service';
 import { SystemController } from './system.controller';
 
 @Module({
-  imports: [TerminusModule, HttpModule, PrerenderModule],
+  providers: [SystemService],
   controllers: [SystemController],
-  providers: [SystemService]
+  imports: [TerminusModule, HttpModule, PrerenderModule],
 })
 export class SystemModule {}
