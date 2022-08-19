@@ -3,7 +3,7 @@ FROM node:16-alpine as installer
 WORKDIR /opt/app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 FROM node:16-alpine
 
@@ -19,4 +19,5 @@ COPY --from=installer $WORKDIR/node_modules node_modules/
 COPY package*.json tsconfig*.json ./
 COPY src src/
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "build"]
+CMD ["npm", "run", "start:prod"]

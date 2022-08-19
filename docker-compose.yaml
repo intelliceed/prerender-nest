@@ -41,11 +41,12 @@ services:
     build:
       context: .
     container_name: prerender-api
+    command: npm run start:dev
     depends_on:
       - redis
       - prerender
     environment:
-      DEBUG: true
+      DEBUG: 1
       PORT: 3001
       PRERENDER_URL: http://prerender:3000
       REDIS_URL: redis://redis:6379/0
