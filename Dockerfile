@@ -1,13 +1,30 @@
-FROM node:16.16.0
+FROM node:16-alpine as installer
 
-WORKDIR /usr/app
-COPY ./package*.json ./
-RUN npm install
+WORKDIR /opt/app
 
-COPY . .
+COPY package*.json ./
+RUN npm ci
 
-RUN chown -R node:node /usr/app
+FROM node:16-alpine as builder
+
+ARG WORKDIR=/opt/app
+
+WORKDIR $WORKDIR
+
+COPY --from=installer $WORKDIR/node_modules node_modules/
+COPY package*.json tsconfig*.json ./
+COPY src src/
+RUN npm run build
+
+FROM node:16-alpine
+
+ARG WORKDIR=/opt/app
+
+WORKDIR $WORKDIR
 USER node
 
+COPY --from=builder $WORKDIR/dist/* ./
+
 EXPOSE 3001
-CMD ["npm", "run", "start:dev"]
+
+CMD ["npm", "run", "start:prod:dist"]

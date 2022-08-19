@@ -1,37 +1,63 @@
-version: "3.8"
+version: "3.9"
+
+volumes:
+  redis_cache:
+
+networks:
+  prerender:
+    driver: bridge
 
 services:
-  main:
-    container_name: nest-prerender
+  redis:
+    command: redis-server --save 20 1 --loglevel warning
+    container_name: redis
+    image: redis:6.2-alpine
+    logging:
+      driver: local
+    networks:
+      - prerender
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_cache:/var/cache/redis
+
+  prerender:
+    build:
+      context: prerender
+    container_name: prerender
+    environment:
+      PRERENDER_PORT: 3000
+    init: true
+    logging:
+      driver: local
+    networks:
+      - prerender
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  prerender-api:
     build:
       context: .
-    tty: true
+    container_name: prerender-api
+    command: npm run start:dev
+    depends_on:
+      - redis
+      - prerender
     environment:
       DEBUG: 1
       PORT: 3001
-      HOST: 0.0.0.0
-      REDIS_URL: redis://cache:6379/0
-      CHROME_FORWARD_HEADERS: 1
-      CHROME_DEBUGGING_PORT: 9222
-      CHROME_BIN: /usr/bin/chromium-browser
-      CHROME_FLAGS: --no-sandbox,--headless,--disable-gpu,--remote-debugging-port=9222,--hide-scrollbars,--disable-dev-shm-usage
-    depends_on:
-      - cache
+      PRERENDER_URL: http://prerender:3000
+      REDIS_URL: redis://redis:6379/0
+    init: true
+    logging:
+      driver: local
+    networks:
+      - prerender
     ports:
-      - '3001:3001'
-    command: npm run start:dev
+      - "3001:3001"
+    restart: unless-stopped
     volumes:
-      - .:/usr/app/
-      - /usr/app/node_modules
-
-  cache:
-    image: redis:6.2-alpine
-    restart: always
-    ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning
-    volumes:
-      - cache:/data/cache
-
-volumes:
-  cache:
+      - .:/opt/app/
+      - /opt/app/node_modules

@@ -10,13 +10,11 @@ export class PrerenderController {
 
   @Get('/refresh')
   refresh (@Query() options: PrerenderOptions) {
-    console.info('/refresh')
     return this.prerenderService.refresh(options);
   }
 
   @Get('/render')
   get (@Query() options: PrerenderOptions) {
-    console.info('/render')
     return this.prerenderService.get(options);
   }
 }
