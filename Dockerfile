@@ -5,19 +5,26 @@ WORKDIR /opt/app
 COPY package*.json ./
 RUN npm ci
 
-FROM node:16-alpine
+FROM node:16-alpine as builder
 
 ARG WORKDIR=/opt/app
 
-EXPOSE 3001
-
 WORKDIR $WORKDIR
-RUN chown -R node:node $WORKDIR
-USER node
 
 COPY --from=installer $WORKDIR/node_modules node_modules/
 COPY package*.json tsconfig*.json ./
 COPY src src/
+RUN npm run build
 
-CMD ["npm", "run", "build"]
-CMD ["npm", "run", "start:prod"]
+FROM node:16-alpine
+
+ARG WORKDIR=/opt/app
+
+WORKDIR $WORKDIR
+USER node
+
+COPY --from=builder $WORKDIR/dist/* ./
+
+EXPOSE 3001
+
+CMD ["npm", "run", "start:prod:dist"]

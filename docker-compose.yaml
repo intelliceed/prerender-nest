@@ -9,9 +9,9 @@ networks:
 
 services:
   redis:
-    image: redis:6.2-alpine
     command: redis-server --save 20 1 --loglevel warning
     container_name: redis
+    image: redis:6.2-alpine
     logging:
       driver: local
     networks:
@@ -58,3 +58,6 @@ services:
     ports:
       - "3001:3001"
     restart: unless-stopped
+    volumes:
+      - .:/opt/app/
+      - /opt/app/node_modules
